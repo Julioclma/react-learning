@@ -1,46 +1,41 @@
 import React, { Component } from 'react';
 
-class Equipe extends Component {
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Julio',
+      contador: 0
+    };
+    
+    this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
+  }
+
+  add = () => {
+    this.state.name = "Atualiza"
+    this.state.contador++;
+    this.setState(this.state); 
+  }
+
+  remove = () => {
+    this.state.contador--;
+    this.setState(this.state); 
+  }
+
   render() {
     return (
       <div>
-        <Sobre name={this.props.name} responsability={this.props.responsability} age={this.props.age} />
-        <hr />
+        {this.state.name}
+        <h3><button onClick={this.remove}>-
+        </button>{this.state.contador}
+          <button onClick={this.add}>+</button>
+        </h3>
       </div>
     );
+
   }
 }
 
-class Sobre extends Component {
-  render() {
-    return (
-      <div>
-        <p>Olá, sou o {this.props.name}</p>
-        <p>Cargo: {this.props.responsability}</p>
-        <p>Idade: {this.props.age}</p>
-        <Social />
-      </div>
-    )
-  }
-}
-
-const Social = () => {
-  return(
-    <div>
-      <a href="#">Instagram</a>
-      <a href="#">LinkedIn</a>
-    </div>
-  )
-}
-
-export default function App() {
-
-
-  return (
-    <div>
-      <h1>Conheça nossa equipe: </h1>
-      <Equipe name="Julio" responsability="developer" age="23" />
-      <Equipe name="João" responsability="developer" age="20" />
-    </div>
-  )
-}
+export default App;
