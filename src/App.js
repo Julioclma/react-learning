@@ -1,19 +1,38 @@
 export default function App() {
 
-  const Bemvindo = (props) => {
-    return (
-      <div>
-        <h2>Bem-vindo {props.name} - Tenho {props.age}</h2>
-      </div>
-    );
+  const About = (props) => {
+    return(
+<div>
+  <p>{props.name} - {props.responsability} - {props.age}</p>
+</div>
+
+    )
   }
 
+  const Social = (props) => {
+    return(
+      <div>
+        <p>Meu Instagram: <a href="">{props.instagram}</a></p>
+        </div>
+    )
+  }
 
+  const Equipe = (props) => {
+   return (
+    <div>
+      <About name={props.name} responsability={props.responsability} age={props.age}/>
+      <Social instagram={props.instagram}/>
+      <hr/>
+    </div>
+   );
+  }
+  
   return (
     <div>
-      <Bemvindo name="Julio" age="23" />
-      <Bemvindo name="Marcos" age="25" />
-      <h2>Olá</h2>
+   <h1>Conheça nossa equipe: </h1>
+   <Equipe name="Julio" responsability="Developer" age="23" instagram="julioclmafra"/>
+   <Equipe name="Lara" responsability="Developer" age="21" instagram="laramsal"/>
+   <Equipe name="Matheus" responsability="Developer" age="28" instagram="mattdev"/>
     </div>
   )
 }
