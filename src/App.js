@@ -1,38 +1,46 @@
+import React, { Component } from 'react';
+
+class Equipe extends Component {
+  render() {
+    return (
+      <div>
+        <Sobre name={this.props.name} responsability={this.props.responsability} age={this.props.age} />
+        <hr />
+      </div>
+    );
+  }
+}
+
+class Sobre extends Component {
+  render() {
+    return (
+      <div>
+        <p>Olá, sou o {this.props.name}</p>
+        <p>Cargo: {this.props.responsability}</p>
+        <p>Idade: {this.props.age}</p>
+        <Social />
+      </div>
+    )
+  }
+}
+
+const Social = () => {
+  return(
+    <div>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  )
+}
+
 export default function App() {
 
-  const About = (props) => {
-    return(
-<div>
-  <p>{props.name} - {props.responsability} - {props.age}</p>
-</div>
 
-    )
-  }
-
-  const Social = (props) => {
-    return(
-      <div>
-        <p>Meu Instagram: <a href="">{props.instagram}</a></p>
-        </div>
-    )
-  }
-
-  const Equipe = (props) => {
-   return (
-    <div>
-      <About name={props.name} responsability={props.responsability} age={props.age}/>
-      <Social instagram={props.instagram}/>
-      <hr/>
-    </div>
-   );
-  }
-  
   return (
     <div>
-   <h1>Conheça nossa equipe: </h1>
-   <Equipe name="Julio" responsability="Developer" age="23" instagram="julioclmafra"/>
-   <Equipe name="Lara" responsability="Developer" age="21" instagram="laramsal"/>
-   <Equipe name="Matheus" responsability="Developer" age="28" instagram="mattdev"/>
+      <h1>Conheça nossa equipe: </h1>
+      <Equipe name="Julio" responsability="developer" age="23" />
+      <Equipe name="João" responsability="developer" age="20" />
     </div>
   )
 }
