@@ -1,36 +1,41 @@
 import React, { Component } from 'react';
-import Feed  from './components/Feed';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      feed: [
-        {
-          id: 1, userName: 'Julio', likes : 10, comments:2
-        },
-        {
-          id: 2, userName: 'Lucas', likes : 5, comments:1
-        },
-        {
-          id: 3, userName: 'Amanda', likes : 1000, comments:85
-        },
-        {
-          id: 4, userName: 'Roberto', likes : 2, comments:0
-        }
-      ]
+      email: '',
+      password: '',
+      gender: '',
     }
+
+    this.alteraSenha = this.alteraSenha.bind(this);
+  }
+
+
+  alteraSenha(element) {
+    this.setState({ password: element.target.value });
   }
 
   render() {
     return (
       <div>
-     {this.state.feed.map((item) => {
-      return (
-      <Feed id={item.id} userName={item.userName} likes={item.likes} comments={item.comments}/>
-      );
-     })}
+        <h2>Login</h2>
+        Email:
+        <input type="email" name="email" value={this.state.email} onChange={(element) => this.setState({ email: element.target.value })} /><br></br>
+        Senha:
+        <input type="password" name="password" value={this.state.password} onChange={this.alteraSenha} /><br></br>
+        Qual seu sexo?
+        <select name='gender' onChange={(element) => this.setState({ gender: element.target.value })}>
+          <option value="">Selecione</option>
+          <option value="female">Feminino</option>
+          <option value="male">Masculino</option>
+        </select>
+        <br></br>
+        <br></br>
+        <br></br>
+        <a>{this.state.email} - {this.state.password} - {this.state.gender}</a>
       </div>
     );
 
