@@ -6,55 +6,57 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      frase: ''
+      time: 0,
+      timer: null
     }
 
-    this.frases = [
-      'Desejar algo maior pra sua vida não significa que você está insatisfeito com o que tem.',
-      'Agradeço todos os dias pela minha vida, por tudo o que conquistei até aqui. E tenho fé de que o futuro me reserva realizações ainda maiores!',
-      'Tenho uma profunda gratidão por cada lição que aprendi no passado. Afinal, foram elas que me permitiram chegar até aqui!',
-      'Lembre-se do seu passado com carinho. Afinal, é por causa dele que você está aqui hoje!',
-      'A gratidão é uma grande aliada do sucesso!',
-      'A melhor maneira de agradecer por um belo momento é desfrutá-lo plenamente.',
-      'A gratidão é o único tesouro dos humildes.',
-      'Não deixe que as pessoas te façam desistir daquilo que você mais quer na vida. Acredite. Lute. Conquiste. E acima de tudo, seja feliz!',
-      'Toda ação humana, quer se torne positiva ou negativa, precisa depender de motivação.',
-      'Conserve os olhos fixos num ideal sublime e lute sempre pelo que deseja, pois só os fracos desistem e só quem luta é digno de vida.'
-    ];
 
-    this.changeFrase = this.changeFrase.bind(this);
+    this.start = this.start.bind(this);
+    this.clean = this.clean.bind(this);
+  }
+
+  start() {
+    if (this.state.timer === null) {
+      this.state.timer = setInterval(() => {
+        this.setState({ time: (parseFloat(this.state.time) + 0.1).toFixed(1) });
+      }, 100);
+      return;
+    }
+
+    clearInterval(this.state.timer);
+    this.setState({ timer: null });
 
   }
 
-  changeFrase() {
-    this.setState({ frase: this.frases[Math.floor(Math.random() * (this.frases).length)] });
+  clean() {
+    clearInterval(this.state.timer);
+    this.setState({ timer: null })
+    this.setState({ time: 0 });
   }
-
-
 
 
   render() {
     return (
       <div className='container'>
-        <img src={require('./assets/biscoito.png')} className='img' />
-        <ButtonBiscoito name='Abrir Biscoito' actionButton={this.changeFrase} />
-        <h3 className='texto-frase'>{this.state.frase}</h3>
+        <h1>{this.state.time}</h1>
+
+        <ButtonActions start={this.start} clean={this.clean} timer={this.state.timer} />
+
       </div>
     );
 
   }
 }
 
-class ButtonBiscoito extends Component {
-
-
+class ButtonActions extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.actionButton}>{this.props.name}</button>
+        <button onClick={this.props.start} >{this.props.timer !== null ? 'Pausa' : 'Inicia'}</button> - <button onClick={this.props.clean}>Limpar</button>
       </div>
     )
   }
 }
+
 
 export default App;
