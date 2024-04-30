@@ -1,62 +1,34 @@
-import React, { Component } from 'react';
-import './style.css';
-
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: 0,
-      timer: null
-    }
+import React, { useState } from 'react';
 
 
-    this.start = this.start.bind(this);
-    this.clean = this.clean.bind(this);
-  }
+function App() {
 
-  start() {
-    if (this.state.timer === null) {
-      this.state.timer = setInterval(() => {
-        this.setState({ time: (parseFloat(this.state.time) + 0.1).toFixed(1) });
-      }, 100);
-      return;
-    }
+  const [tarefas, setTarefas] = useState([
+    'Pagar a conta de luz',
+    'Estudar React Hooks'
+  ]);
 
-    clearInterval(this.state.timer);
-    this.setState({ timer: null });
+  const [tarefa, setTarefa] = useState('');
 
-  }
-
-  clean() {
-    clearInterval(this.state.timer);
-    this.setState({ timer: null })
-    this.setState({ time: 0 });
+  function handleAdd() {
+    setTarefas([...tarefas, tarefa]);
+    setTarefa('');
   }
 
 
-  render() {
-    return (
-      <div className='container'>
-        <h1>{this.state.time}</h1>
+  return (
+    <div>
+      <ul>
+        {tarefas.map(tarefa => (
+          <li key={tarefa}>{tarefa}</li>
+        ))
+        }
+      </ul>
+      <input type="text" name="tarefa" value={tarefa} onChange={element => setTarefa(element.target.value)} />
+      <button type="button" onClick={handleAdd}>Adicionar</button>
+    </div>
+  );
 
-        <ButtonActions start={this.start} clean={this.clean} timer={this.state.timer} />
-
-      </div>
-    );
-
-  }
 }
-
-class ButtonActions extends Component {
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.start} >{this.props.timer !== null ? 'Pausa' : 'Inicia'}</button> - <button onClick={this.props.clean}>Limpar</button>
-      </div>
-    )
-  }
-}
-
 
 export default App;
