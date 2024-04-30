@@ -1,47 +1,47 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
+import './style.css';
 
+//https://sujeitoprogramador.com/rn-api/?api=posts
 
 function App() {
 
-  const [tarefas, setTarefas] = useState([]);
+  const [nutri, setNutri] = useState([]);
 
-  const [tarefa, setTarefa] = useState('');
-
-  const totalTarefas = useMemo(() => tarefas.length, [tarefas]);
-
+  //Carrega automático quando abrir aplicação
   useEffect(() => {
-    const tarefasStorage = localStorage.getItem('tarefas');
 
-    if (tarefasStorage) {
-      setTarefas(JSON.parse(tarefasStorage));
-    }
+    function loadApi() {
+      fetch('https://sujeitoprogramador.com/rn-api/?api=posts')
+        .then(response => response.json())
+        .then(json => {
+          console.log(json);
+          setNutri(json);
+        });
+    };
+
+    loadApi();
+
   }, []);
 
 
-  useEffect(() => {
-    localStorage.setItem('tarefas', JSON.stringify(tarefas));
-  }, [tarefas]);
-
-
-
-  function handleAdd() {
-    setTarefas([...tarefas, tarefa]);
-    setTarefa('');
-  }
-
-
-
   return (
-    <div>
-      <ul>
-        {tarefas.map(tarefa => (
-          <li key={tarefa}>{tarefa}</li>
-        ))
-        }
-      </ul><br/>
-      <strong>Você tem {totalTarefas} tarefas</strong><br/>
-      <input type="text" name="tarefa" value={tarefa} onChange={element => setTarefa(element.target.value)} />
-      <button type="button" onClick={handleAdd}>Adicionar</button>
+    <div className='container'>
+      <header>
+        <strong>React Nutri</strong>
+      </header>
+      <div id='container-posts'>
+        {nutri.map(item => (
+          
+            <ul key={item.id}>
+              <li><strong>{item.titulo}</strong></li>
+              <li><img src={item.capa} alt={item.titulo} /></li>
+              <li><p>{item.categoria}</p></li>
+              <li><p>{item.subtitulo}</p></li>
+              <li><a href="#">acessar</a></li>
+            </ul>
+        ))}
+      </div>
+      
     </div>
   );
 
