@@ -3,29 +3,15 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const [tarefas, setTarefas] = useState([
-    'Pagar a conta de luz',
-    'Estudar React Hooks'
-  ]);
+  let [contator, setContator] = useState(0);
 
-  const [tarefa, setTarefa] = useState('');
-
-  function handleAdd() {
-    setTarefas([...tarefas, tarefa]);
-    setTarefa('');
-  }
 
 
   return (
     <div>
-      <ul>
-        {tarefas.map(tarefa => (
-          <li key={tarefa}>{tarefa}</li>
-        ))
-        }
-      </ul>
-      <input type="text" name="tarefa" value={tarefa} onChange={element => setTarefa(element.target.value)} />
-      <button type="button" onClick={handleAdd}>Adicionar</button>
+      <h2>{contator}</h2>
+      <button type="button" onClick={() => setContator(contator - 1)}>+ Diminui</button>
+      <button type="button" onClick={() => setContator(contator + 1)}>+ Aumenta</button>
     </div>
   );
 
